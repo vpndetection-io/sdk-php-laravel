@@ -1,4 +1,4 @@
-# [<img src="https://s3.vpndetection.io/vpndetection-public/brand/mark.svg" alt="VPNDetection" width="24"/>](https://vpndetection.io/) VPNDetection Laravel Middleware
+# [<img src="https://s3.vpndetection.io/vpndetection-public/brand/mark.svg" alt="VPNDetection" height="28"/>](https://vpndetection.io/) VPNDetection Laravel Middleware
 
 [![Packagist](https://img.shields.io/packagist/v/vpndetection/laravel.svg)](https://packagist.org/packages/vpndetection/laravel)
 [![license](https://img.shields.io/packagist/l/vpndetection/laravel.svg)](LICENSE)
