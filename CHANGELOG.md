@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.0.5 - 2026-09-27
+
+### Features
+
+- Require vpndetection 4.4.0: OauthMetadata carries clientIdMetadataDocumentSupported ([`e3e3ea6`](https://github.com/vpndetection-io/sdk-php-laravel/commit/e3e3ea61e10fd43a500b2e4b1d685c4f8dd7f060))
+
 ## 2.0.4 - 2026-09-23
 
 ### Fixes
