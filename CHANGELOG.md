@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.0.6 - 2026-09-28
+
+### Fixes
+
+- Require vpndetection 4.4.1: IPv4-mapped visitors are looked up, not waved through ([`b723460`](https://github.com/vpndetection-io/sdk-php-laravel/commit/b7234607bf97033a724242d365528888c95594e2))
+
 ## 2.0.5 - 2026-09-27
 
 ### Features
