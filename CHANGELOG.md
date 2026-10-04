@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.0.9 - 2026-10-04
+
+### Features
+
+- Require vpndetection 4.5.0: the authorization code sign-in ([`f824f30`](https://github.com/vpndetection-io/sdk-php-laravel/commit/f824f306130c049c099f14eb3d97e60a5474bfe4))
+
 ## 2.0.8 - 2026-10-04
 
 ### Fixes
