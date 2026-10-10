@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.1.0 - 2026-10-10
+
+### Features
+
+- Support Laravel 13 ([`0f5a52f`](https://github.com/vpndetection-io/sdk-php-laravel/commit/0f5a52f085a2ec44edae59a7a246c984ac3eb525))
+
 ## 2.0.10 - 2026-10-07
 
 ### Fixes
