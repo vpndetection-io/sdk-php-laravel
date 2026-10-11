@@ -79,7 +79,7 @@ For an edge that writes the address into its own header, name the header:
 
 Anything else, pass your own callable. It receives the request and returns an address.
 
-If the address resolves to a private one, the middleware says so once. That is expected locally and is the signal to fix your configuration anywhere else.
+If the address resolves to a private one, the middleware says so once each time the application boots, which under PHP-FPM is every request. That is expected locally and is the signal to fix your configuration anywhere else.
 
 ## When a lookup fails
 
@@ -87,7 +87,7 @@ The request is let through, and the reason is on the answer's `error`. Our outag
 
 ## Cost and latency
 
-Answers are cached for an hour, so a returning visitor costs nothing, and private addresses never leave the process. A cache miss is one request to our API, bounded at 2.5 seconds by default and not retried — on a request path, failing open quickly beats holding a visitor while we try again.
+Answers are cached for an hour in the client, and private addresses never leave the process. Under PHP-FPM, mod_php or `php artisan serve` the application, and the client with it, is built afresh for every request, so there every request that reaches the middleware is a lookup and the cache only saves a second one within it; a runtime that keeps the application between requests keeps the cache too. A lookup is one request to our API, bounded at 2.5 seconds by default and not retried — on a request path, failing open quickly beats holding a visitor while we try again.
 
 Beyond a few million distinct visitors a day, stop calling the API per request: [download the dataset](https://vpndetection.io/#databases) and look addresses up locally instead.
 
@@ -99,7 +99,7 @@ Only `ip` and `isVpn` come back on every plan. A property your plan does not inc
 $lookup->result->isHosting ?? false   // when you only want the flag
 ```
 
-A `block_condition` naming a member your plan does not serve can never match, so the middleware warns once instead of failing silently. Set `on_missing_field` to `throw` to make it an error.
+A `block_condition` naming a member your plan does not serve can never match, so the middleware warns, once each time the application boots, instead of failing silently. Set `on_missing_field` to `throw` to make it an error.
 
 ## Other Libraries
 
