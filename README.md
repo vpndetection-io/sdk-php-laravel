@@ -66,7 +66,7 @@ Values are matched by equality, strings without regard to case. A LIST means any
 
 This is the setting that decides whether any of the above works, and it is the one thing only you can get right.
 
-By default the middleware uses `$request->ip()`, which honours Laravel's own `TrustProxies` middleware. That is the right fix behind a load balancer: set `TrustProxies` to the proxies actually in front of you and `ip()` walks the chain for you. Without it, and behind one, every visitor looks like the load balancer — a datacenter address, so a hosting rule would block all of them.
+By default the middleware uses `$request->ip()`, which honours Laravel's own `TrustProxies` middleware. That is the right fix behind a load balancer: set `TrustProxies` to the proxies actually in front of you and `ip()` walks the chain for you. Without it, and behind one, every visitor looks like the load balancer, and that is the address that gets checked: VPN visitors pass unnoticed, and if it is a hosting address, a hosting rule blocks everyone. A load balancer in your own network usually has a private address, which the middleware answers locally without a lookup, flagging nobody and logging a warning.
 
 For an edge that writes the address into its own header, name the header:
 
