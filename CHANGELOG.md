@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.0 - 2026-10-13
+
+### Features
+
+- Keep answers in the app's cache store between requests ([`e2ef841`](https://github.com/vpndetection-io/sdk-php-laravel/commit/e2ef8418863cc3cb94c7ebc28b72595109874c6f))
+
 ## 2.1.1 - 2026-10-10
 
 ### Fixes
