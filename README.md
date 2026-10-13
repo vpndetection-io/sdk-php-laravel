@@ -87,7 +87,9 @@ The request is let through, and the reason is on the answer's `error`. Our outag
 
 ## Cost and latency
 
-Answers are cached for an hour in the client, and private addresses never leave the process. Under PHP-FPM, mod_php or `php artisan serve` the application, and the client with it, is built afresh for every request, so there every request that reaches the middleware is a lookup and the cache only saves a second one within it; a runtime that keeps the application between requests keeps the cache too. A lookup is one request to our API, bounded at 2.5 seconds by default and not retried — on a request path, failing open quickly beats holding a visitor while we try again.
+Answers are cached for an hour in your app's default cache store, keyed by a hash of your API key and the visitor's address, so a returning visitor costs nothing even under PHP-FPM, where the application is built afresh for every request. Private addresses never leave the process. A lookup is one request to our API, bounded at 2.5 seconds by default and not retried — on a request path, failing open quickly beats holding a visitor while we try again.
+
+Name another store from `config/cache.php` with `cache_store`, or set it to `false` to keep answers in the client alone, which under PHP-FPM lasts one request.
 
 Beyond a few million distinct visitors a day, stop calling the API per request: [download the dataset](https://vpndetection.io/#databases) and look addresses up locally instead.
 

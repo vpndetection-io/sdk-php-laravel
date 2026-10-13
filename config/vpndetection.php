@@ -28,4 +28,9 @@ return [
     'ip_selector' => null,
 
     'on_missing_field' => 'warn',
+
+    // The store from config/cache.php that answers are kept in between requests: under
+    // PHP-FPM the client, and a cache of its own, lasts one request. Null is your
+    // default store; false keeps answers in the client alone.
+    'cache_store' => null,
 ];

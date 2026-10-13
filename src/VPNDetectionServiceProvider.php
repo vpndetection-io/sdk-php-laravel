@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace VPNDetection\Laravel;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use Psr\SimpleCache\CacheInterface;
 use VPNDetection\Middleware\Core;
 use VPNDetection\Middleware\Options;
 
@@ -27,7 +29,7 @@ final class VPNDetectionServiceProvider extends ServiceProvider
             unset($config['on_blocked']);
 
             return new VPNDetectionMiddleware(
-                new Core(self::options($config), Selectors::default()),
+                new Core(self::options($config, self::store($app, $config['cache_store'] ?? null)), Selectors::default()),
                 $onBlocked,
             );
         });
@@ -47,7 +49,7 @@ final class VPNDetectionServiceProvider extends ServiceProvider
      *
      * @param array<string, mixed> $config
      */
-    private static function options(array $config): Options
+    private static function options(array $config, ?CacheInterface $store): Options
     {
         return new Options(
             client: $config['client'] ?? null,
@@ -61,6 +63,15 @@ final class VPNDetectionServiceProvider extends ServiceProvider
             onMissingField: (string) ($config['on_missing_field'] ?? 'warn'),
             skip: $config['skip'] ?? null,
             onWarn: $config['on_warn'] ?? null,
+            cacheStore: $store,
         );
+    }
+
+    private static function store(Application $app, mixed $name): ?CacheInterface
+    {
+        if ($name === false || !$app->bound('cache')) {
+            return null;
+        }
+        return $app['cache']->store(is_string($name) ? $name : null);
     }
 }
