@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.1 - 2026-10-15
+
+### Fixes
+
+- Require vpndetection 4.6.1: OAuth discovery and device authorization retry an unreadable answer ([`ff65a33`](https://github.com/vpndetection-io/sdk-php-laravel/commit/ff65a33bad2bd09568e1acca29f02d1826052061))
+
 ## 2.2.0 - 2026-10-13
 
 ### Features
