@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.4 - 2026-10-18
+
+### Fixes
+
+- Require vpndetection 4.8.0: isPubproxy and the pubproxy detail ([`287004c`](https://github.com/vpndetection-io/sdk-php-laravel/commit/287004c533baea9819703e7d9d900bcf5818bc48))
+
 ## 2.2.3 - 2026-10-17
 
 ### Features
