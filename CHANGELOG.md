@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.5 - 2026-10-19
+
+### Fixes
+
+- Require vpndetection 4.9.0: num_ports and num_proxies in the pubproxy detail ([`b6eda5b`](https://github.com/vpndetection-io/sdk-php-laravel/commit/b6eda5b3c59f2ad3449916fb37c2da248bcd7899))
+
 ## 2.2.4 - 2026-10-18
 
 ### Fixes
