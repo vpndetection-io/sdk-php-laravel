@@ -15,7 +15,7 @@ composer require vpndetection/laravel
 
 Requires PHP 8.2 or newer and Laravel 10, 11, 12 or 13.
 
-You need an API key. Create one in the [console](https://app.vpndetection.io); the free tier's allowance is counted per source address, and a server is a single source address, so a key is what makes this usable in production rather than optional.
+You need an API key. Create one in the [console](https://app.vpndetection.io); without one the allowance is counted per source address, and a server is a single source address, so a key is what makes this usable in production rather than optional.
 
 The service provider is auto-discovered. Publish the config and register the middleware:
 
@@ -95,7 +95,7 @@ Beyond a few million distinct visitors a day, stop calling the API per request: 
 
 ## Absent is not false
 
-Only `ip` and `isVpn` come back on every plan. A property your plan does not include is `null`, which means "not in your plan" rather than "checked, and no".
+Without a key only `ip` and `isVpn` come back, and a free key adds Tor, relay, `location` and `asn`. A property your plan does not include is `null`, which means "not in your plan" rather than "checked, and no".
 
 ```php
 $lookup->result->isHosting ?? false   // when you only want the flag
