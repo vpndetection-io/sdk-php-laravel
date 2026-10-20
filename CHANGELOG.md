@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.6 - 2026-10-20
+
+### Features
+
+- Require vpndetection 4.10.0: lookup results carry location and asn ([`67a03e5`](https://github.com/vpndetection-io/sdk-php-laravel/commit/67a03e51300342d5c923176317efd8bfc0479352))
+
 ## 2.2.5 - 2026-10-19
 
 ### Fixes
