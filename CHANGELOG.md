@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.7 - 2026-10-21
+
+### Fixes
+
+- Require vpndetection 4.11.0, which refuses an answer of the wrong type ([`199b1ca`](https://github.com/vpndetection-io/sdk-php-laravel/commit/199b1ca405e33c50410d644969fb83594604f7b2))
+
 ## 2.2.6 - 2026-10-20
 
 ### Features
