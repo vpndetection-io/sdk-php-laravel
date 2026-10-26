@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.8 - 2026-10-26
+
+### Fixes
+
+- Require vpndetection 4.11.1: re-pinned to the 2026.10.25 spec ([`07ec3ef`](https://github.com/vpndetection-io/sdk-php-laravel/commit/07ec3ef10ae651365e837f661f503c478318501a))
+
 ## 2.2.7 - 2026-10-21
 
 ### Fixes
