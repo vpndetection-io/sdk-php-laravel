@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.9 - 2026-10-30
+
+### Fixes
+
+- Require vpndetection 4.11.2: a lowercase t or z in a date-time reads, a final newline is refused ([`4a44442`](https://github.com/vpndetection-io/sdk-php-laravel/commit/4a44442175c59898dc4883abd669b317b7e0ef1e))
+
 ## 2.2.8 - 2026-10-26
 
 ### Fixes
