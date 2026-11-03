@@ -3,7 +3,7 @@
 [![Packagist](https://img.shields.io/packagist/v/vpndetection/laravel.svg)](https://packagist.org/packages/vpndetection/laravel)
 [![license](https://img.shields.io/packagist/l/vpndetection/laravel.svg)](LICENSE)
 
-The official Laravel Middleware for the [VPNDetection](https://vpndetection.io) API.
+The official Laravel middleware for the [VPNDetection](https://vpndetection.io) API.
 
 It classifies the visitor behind each request — VPN, residential proxy, Tor, hosting, CDN, relay — and hands the answer to your code. Blocking is opt-in.
 
