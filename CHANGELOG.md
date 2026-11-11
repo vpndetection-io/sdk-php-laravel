@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.14 - 2026-11-11
+
+### Fixes
+
+- Require vpndetection 4.13.2: the Unlimited tier and its terms ([`347d073`](https://github.com/vpndetection-io/sdk-php-laravel/commit/347d0734a0e70c321919c4ac7b825f0ddfbdba33))
+
 ## 2.2.13 - 2026-11-11
 
 ### Fixes
