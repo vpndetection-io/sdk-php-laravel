@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.12 - 2026-11-11
+
+### Features
+
+- Require vpndetection 4.13.0: a lookup without a key answers more ([`e5c7433`](https://github.com/vpndetection-io/sdk-php-laravel/commit/e5c7433aafcf6133396106e31fd5465dad9f469b))
+
 ## 2.2.11 - 2026-11-07
 
 ### Features
