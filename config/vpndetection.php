@@ -3,9 +3,8 @@
 declare(strict_types=1);
 
 return [
-    // Your API key. Without one, lookups are limited to 60 a minute from each source
-    // address and a server is one source address, so this is what makes the
-    // middleware usable in production.
+    // Your API key. Without one a lookup leaves out the hosting, CDN and proxy
+    // flags, so this is what makes the middleware usable in production.
     'api_key' => env('VPNDETECTION_API_KEY'),
 
     // What to block on, in the shape of a Result. Leave it null to only enrich the
