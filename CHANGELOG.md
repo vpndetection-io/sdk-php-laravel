@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.15 - 2026-11-11
+
+### Features
+
+- Require vpndetection 4.14.0: trial_expired on a trial key's answers ([`42ce639`](https://github.com/vpndetection-io/sdk-php-laravel/commit/42ce6392a09d7f8068829f881b2194f3532ee607))
+
 ## 2.2.14 - 2026-11-11
 
 ### Fixes
