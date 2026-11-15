@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.17 - 2026-11-15
+
+### Fixes
+
+- Require vpndetection 4.15.0: is_bogon on every answer, and provider_name beside each provider ([`16aafc0`](https://github.com/vpndetection-io/sdk-php-laravel/commit/16aafc0ac1e351d725ca02e451e46a9192eca88b))
+
 ## 2.2.16 - 2026-11-11
 
 ### Fixes
