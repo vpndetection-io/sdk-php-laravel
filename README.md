@@ -3,9 +3,9 @@
 [![Packagist](https://img.shields.io/packagist/v/vpndetection/laravel.svg)](https://packagist.org/packages/vpndetection/laravel)
 [![license](https://img.shields.io/packagist/l/vpndetection/laravel.svg)](LICENSE)
 
-The official Laravel middleware for the [VPNDetection](https://vpndetection.io) API.
+The official Laravel middleware for the [VPNDetection](https://vpndetection.io) API: it checks each visitor's IP for VPN, Tor and proxy use, and can block them with a 403.
 
-It classifies the visitor behind each request — VPN, residential proxy, Tor, hosting, CDN, relay — and hands the answer to your code. Blocking is opt-in.
+It classifies the visitor behind each request as VPN, residential proxy, Tor, hosting, CDN or relay, and hands the answer to your code. Blocking is opt-in.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ composer require vpndetection/laravel
 
 Requires PHP 8.2 or newer and Laravel 10, 11, 12 or 13.
 
-You need an API key on a paid plan. Create one in the [console](https://app.vpndetection.io); without one a lookup is on Unlimited, the free plan, and leaves out the hosting, CDN and proxy flags, so a paid plan is what makes this usable in production rather than optional. A free account tries every field.
+No API key needed to start. Without one, a lookup is on Unlimited, the free plan, which answers VPN, Tor and relay detection with no daily or monthly cap. A paid plan's key adds the hosting, CDN and proxy flags and the provider behind each flag: create one in the [console](https://app.vpndetection.io). A free account tries every field.
 
 The service provider is auto-discovered. Publish the config and register the middleware:
 
@@ -41,7 +41,7 @@ Route::get("/", function (Request $request) {
 });
 ```
 
-By default nothing is blocked. Every request gets an answer and your own code decides what that means — which is usually what you want, because whether a VPN visitor is a problem depends entirely on what they are doing.
+By default nothing is blocked. Every request gets an answer and your own code decides what to do with it, since whether a VPN visitor is a problem depends on what they're doing.
 
 ## Blocking
 
@@ -64,7 +64,7 @@ Values are matched by equality, strings without regard to case. A LIST means any
 
 ## Where the client address comes from
 
-This is the setting that decides whether any of the above works, and it is the one thing only you can get right.
+Get this setting right, or none of the above works.
 
 By default the middleware uses `$request->ip()`, which honours Laravel's own `TrustProxies` middleware. That is the right fix behind a load balancer: set `TrustProxies` to the proxies actually in front of you and `ip()` walks the chain for you. Without it, and behind one, every visitor looks like the load balancer, and that is the address that gets checked: VPN visitors pass unnoticed, and if it is a hosting address, a hosting rule blocks everyone. A load balancer in your own network usually has a private address, which the middleware answers locally without a lookup, flagging nobody and logging a warning.
 
@@ -75,7 +75,7 @@ For an edge that writes the address into its own header, name the header:
 'ip_selector' => \VPNDetection\Laravel\Selectors::header('CF-Connecting-IP'),
 ```
 
-`\VPNDetection\Laravel\Selectors::xff()` reads `X-Forwarded-For` directly. Be aware that the left-most entry is whatever the caller sent, because proxies append to that header — it is only trustworthy when an edge you control overwrites it. If you know how many proxies sit in front, count from the right instead: `Selectors::xff(1)` is the address your nearest proxy saw.
+`\VPNDetection\Laravel\Selectors::xff()` reads `X-Forwarded-For` directly. The left-most entry is whatever the caller sent, since proxies append to that header, so trust it only when an edge you control overwrites it. If you know how many proxies sit in front, count from the right instead: `Selectors::xff(1)` is the address your nearest proxy saw.
 
 Anything else, pass your own callable. It receives the request and returns an address.
 
@@ -87,7 +87,7 @@ The request is let through, and the reason is on the answer's `error`. Our outag
 
 ## Cost and latency
 
-Answers are cached for an hour in your app's default cache store, keyed by a hash of your API key and the visitor's address, so a returning visitor costs nothing even under PHP-FPM, where the application is built afresh for every request. Private addresses never leave the process. A lookup is one request to our API, bounded at 2.5 seconds by default and not retried — on a request path, failing open quickly beats holding a visitor while we try again.
+Answers are cached for an hour in your app's default cache store, keyed by a hash of your API key and the visitor's address, so a returning visitor costs nothing even under PHP-FPM, where the application is built afresh for every request. Private addresses never leave the process. A lookup is one request to our API, bounded at 2.5 seconds by default and not retried: on a request path, failing open fast beats holding a visitor while we retry.
 
 Name another store from `config/cache.php` with `cache_store`, or set it to `false` to keep answers in the client alone, which under PHP-FPM lasts one request.
 
