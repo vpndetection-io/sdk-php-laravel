@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.20 - 2026-11-20
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.17.0: the network, service, company and abuse members ([`5696837`](https://github.com/vpndetection-io/sdk-php-laravel/commit/5696837db95189defb7eaa05fa7ed6b4304a248f))
+
 ## 2.2.19 - 2026-11-19
 
 ### Fixes
