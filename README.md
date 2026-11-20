@@ -15,7 +15,7 @@ composer require vpndetection/laravel
 
 Requires PHP 8.2 or newer and Laravel 10, 11, 12 or 13.
 
-You need an API key on a paid plan. Create one in the [console](https://app.vpndetection.io); without one a lookup is on Unlimited, the free plan, and leaves out the hosting, CDN and proxy flags, so a paid plan is what makes this usable in production rather than optional. A free account tries every field, 100 lookups a day.
+You need an API key on a paid plan. Create one in the [console](https://app.vpndetection.io); without one a lookup is on Unlimited, the free plan, and leaves out the hosting, CDN and proxy flags, so a paid plan is what makes this usable in production rather than optional. A free account tries every field.
 
 The service provider is auto-discovered. Publish the config and register the middleware:
 
