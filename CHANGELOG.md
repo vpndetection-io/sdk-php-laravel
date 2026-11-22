@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.2.21 - 2026-11-22
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.18.0: is_bot and bot, and the AS's country and RPKI status required ([`45cdc33`](https://github.com/vpndetection-io/sdk-php-laravel/commit/45cdc331d1b0630c38a33a86858c26c86394e4c1))
+
 ## 2.2.20 - 2026-11-20
 
 ### Fixes
