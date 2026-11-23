@@ -64,6 +64,7 @@ final class VPNDetectionServiceProvider extends ServiceProvider
             skip: $config['skip'] ?? null,
             onWarn: $config['on_warn'] ?? null,
             cacheStore: $store,
+            allowBots: (bool) ($config['allow_bots'] ?? false),
         );
     }
 

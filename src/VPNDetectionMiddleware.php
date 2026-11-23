@@ -31,7 +31,7 @@ final class VPNDetectionMiddleware
 
     public function handle(Request $request, Closure $next): Response
     {
-        $lookup = $this->core->evaluate($request);
+        $lookup = $this->core->evaluate($request, $request->headers->get('User-Agent'));
         if ($lookup === null) {
             return $next($request);
         }

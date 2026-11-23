@@ -29,6 +29,13 @@ return [
 
     'on_missing_field' => 'warn',
 
+    // Send each request's own User-Agent with its lookup, and never refuse a request
+    // whose answer says a crawler's operator vouches for this address (a userAgent
+    // verdict of 'verified'), whatever block_condition matches. Only an answer with
+    // every field carries the verdict, so without a paid key nothing is let through
+    // by it. Off by default: on, answers are cached per address and user agent.
+    'allow_bots' => false,
+
     // The store from config/cache.php that answers are kept in between requests: under
     // PHP-FPM the client, and a cache of its own, lasts one request. Null is your
     // default store; false keeps answers in the client alone.
