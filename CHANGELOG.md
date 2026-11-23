@@ -2,6 +2,16 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.0 - 2026-11-23
+
+### Features
+
+- Add allow_bots: send the request's User-Agent, and let a verified crawler through ([`36d0e6a`](https://github.com/vpndetection-io/sdk-php-laravel/commit/36d0e6a0a4e76c765b8e64d70ad2ae810a3c3587))
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.19.0: the user agent a lookup sends, and the middleware's allowBots ([`50fc7fb`](https://github.com/vpndetection-io/sdk-php-laravel/commit/50fc7fbafe909c6d678f94fc247ccc98952075a0))
+
 ## 2.2.21 - 2026-11-22
 
 ### Fixes
