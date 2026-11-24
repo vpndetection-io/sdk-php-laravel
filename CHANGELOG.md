@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.2 - 2026-11-24
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.20.0: a condition on a list member matches any element ([`a9565e6`](https://github.com/vpndetection-io/sdk-php-laravel/commit/a9565e65de87e8c3b821c3ef30c0608abf2a1573))
+
 ## 2.3.1 - 2026-11-24
 
 ### Fixes
