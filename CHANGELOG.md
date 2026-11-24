@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.1 - 2026-11-24
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.19.1: a first_seen or last_seen that is not a day is refused ([`2badb70`](https://github.com/vpndetection-io/sdk-php-laravel/commit/2badb702235a9d2addb1665c29d4021f6bb6d77b))
+
 ## 2.3.0 - 2026-11-23
 
 ### Features
