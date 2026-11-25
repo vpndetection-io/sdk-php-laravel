@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.3 - 2026-11-25
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.20.1: its README and doc comments name the Data plan, not the retired plans ([`d5506cb`](https://github.com/vpndetection-io/sdk-php-laravel/commit/d5506cbf22a2946c1dca27a33af4d76c3e246106))
+
 ## 2.3.2 - 2026-11-24
 
 ### Fixes
