@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.5 - 2026-11-26
+
+### Fixes
+
+- Require vpndetection/vpndetection 4.21.1: a condition on the verdict is no plan gap for a request that sent no agent ([`f7caab0`](https://github.com/vpndetection-io/sdk-php-laravel/commit/f7caab0a849f2f6f950ba31d50197c1b9d1961bf))
+
 ## 2.3.4 - 2026-11-26
 
 ### Features
