@@ -64,14 +64,14 @@ Values are matched by equality, strings without regard to case. A LIST means any
 
 ## Let a verified crawler through
 
-Set `allow_bots` and the middleware sends each request's own `User-Agent` with its lookup, so the answer says whose bot it names and whether this address bears that out. A request whose verdict is `verified`, a crawler its operator vouches for here, is never refused, whatever `block_condition` matches; its answer is still attached:
+Set `allow_bots` and the middleware sends each request's own `User-Agent` with its lookup when it names a crawler, so the answer says whose bot it names and whether this address bears that out. A request whose verdict is `verified`, a crawler its operator vouches for here, is never refused, whatever `block_condition` matches; its answer is still attached:
 
 ```php
 'allow_bots' => true,
 'block_condition' => ['isHosting' => true],
 ```
 
-With it on, a condition can also refuse a forged crawler: `['userAgent' => ['verdict' => 'spoofed']]`. A request with no `User-Agent` sends none. Only an answer with every field carries the verdict, so a keyless client never gets one and nothing is let through by it; the middleware warns once when an agent was sent and the answer had no verdict. Off by default, since on, answers are cached per address and user agent rather than per address.
+With it on, a condition can also refuse a forged crawler: `['userAgent' => ['verdict' => 'spoofed']]`. Any other agent, or none, is not sent, since its verdict could only be `not_bot`. One address is looked up with at most four crawler agents an hour: past those its lookup sends none, and a request passes as a crawler only where the answer's `bot.verified` is true. Only an answer with every field carries the verdict, so a keyless client never gets one and nothing is let through by it; the middleware warns once when an agent was sent and the answer had no verdict. Off by default, since on, answers are cached per address and user agent rather than per address.
 
 ## Where the client address comes from
 
