@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.4 - 2026-11-26
+
+### Features
+
+- Require vpndetection/vpndetection 4.21.0: allowBots sends only a crawler's User-Agent, at most four an address ([`228216f`](https://github.com/vpndetection-io/sdk-php-laravel/commit/228216f837211d153d919cdffad47ecffb4b48ca))
+
 ## 2.3.3 - 2026-11-25
 
 ### Fixes
