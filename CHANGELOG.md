@@ -2,6 +2,16 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.4 are described by their release commits.
 
+## 2.3.6 - 2026-11-27
+
+### Features
+
+- Require vpndetection/vpndetection 4.22.0: a keyless answer without the AS's type reads ([`ec247b9`](https://github.com/vpndetection-io/sdk-php-laravel/commit/ec247b9b91d6504c07f6b59d02df5fb49fc215f4))
+
+### Fixes
+
+- allow_bots: an address's crawler agents are remembered across requests ([`c27026e`](https://github.com/vpndetection-io/sdk-php-laravel/commit/c27026e4eba3755f248ee658072080b4b9811be4))
+
 ## 2.3.5 - 2026-11-26
 
 ### Fixes
