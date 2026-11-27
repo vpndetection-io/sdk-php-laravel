@@ -71,7 +71,7 @@ Set `allow_bots` and the middleware sends each request's own `User-Agent` with i
 'block_condition' => ['isHosting' => true],
 ```
 
-With it on, a condition can also refuse a forged crawler: `['userAgent' => ['verdict' => 'spoofed']]`. Any other agent, or none, is not sent, since its verdict could only be `not_bot`. One address is looked up with at most four crawler agents an hour: past those its lookup sends none, and a request passes as a crawler only where the answer's `bot.verified` is true. Only an answer with every field carries the verdict, and `bot` is a paid member too, so a keyless app gets no bot pass and nothing is let through by it; the middleware warns once when an agent was sent and the answer had no verdict. Off by default, since on, answers are cached per address and user agent rather than per address.
+With it on, a condition can also refuse a forged crawler: `['userAgent' => ['verdict' => 'spoofed']]`. Any other agent, or none, is not sent, since its verdict could only be `not_bot`. One address is looked up with at most four crawler agents an hour, remembered in the app's cache store (`cache_store`) so the bound holds under PHP-FPM too: past those its lookup sends none, and a request passes as a crawler only where the answer's `bot.verified` is true. Only an answer with every field carries the verdict, and `bot` is a paid member too, so a keyless app gets no bot pass and nothing is let through by it; the middleware warns once when an agent was sent and the answer had no verdict. Off by default, since on, answers are cached per address and user agent rather than per address.
 
 ## Where the client address comes from
 

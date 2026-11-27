@@ -6,6 +6,7 @@ namespace VPNDetection\Laravel\Tests;
 
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Psr\SimpleCache\CacheInterface;
 use VPNDetection\Client;
 use VPNDetection\Laravel\VPNDetectionMiddleware;
 use VPNDetection\Laravel\VPNDetectionServiceProvider;
@@ -34,17 +35,20 @@ final class AllowBotsTest extends TestCase
         $router->get('/', static fn (): string => 'ok')->middleware(VPNDetectionMiddleware::class);
     }
 
-    /** @param array<string, mixed> $config */
-    private function serve(?string $verdict, array $config): void
+    /**
+     * @param array<string, mixed> $config
+     * @param ?CacheInterface $pool The store the client keeps its answers in, where the app's own cache is one
+     */
+    private function serve(?string $verdict, array $config, ?CacheInterface $pool = null): void
     {
         $body = ['ip' => self::PEER, 'is_vpn' => false, 'is_hosting' => true];
         if ($verdict !== null) {
             $body['user_agent'] = ['agent' => 'Googlebot', 'kind' => 'bot', 'verdict' => $verdict];
         }
         $this->stub = new Stub(Stub::lookups([self::PEER => ['status' => 200, 'body' => $body]]));
-        $this->app['config']->set('vpndetection.client', new Client(
-            new Options(cache: false, retries: 0, httpClient: $this->stub->client),
-        ));
+        $this->app['config']->set('vpndetection.client', new Client($pool === null
+            ? new Options(cache: false, retries: 0, httpClient: $this->stub->client)
+            : new Options(retries: 0, cacheStore: $pool, httpClient: $this->stub->client)));
         foreach ($config as $key => $value) {
             $this->app['config']->set("vpndetection.{$key}", $value);
         }
@@ -71,6 +75,28 @@ final class AllowBotsTest extends TestCase
 
         self::assertSame(200, $this->visit());
         self::assertSame(['user_agent' => self::GOOGLEBOT], $this->sent());
+    }
+
+    /**
+     * Under PHP-FPM each request builds the application and the middleware in it, so the four
+     * agents an address may be looked up with have to be remembered in the client's store.
+     */
+    public function testTheBoundOnAnAddressesAgentsHoldsAcrossRequestsInTheClientsStore(): void
+    {
+        $pool = $this->app['cache']->store();
+        $agent = static fn (int $n): string => "Mozilla/5.0 (compatible; Examplebot/{$n}.0)";
+        $statuses = [];
+        for ($n = 1; $n <= 5; $n++) {
+            $this->serve('verified', ['allow_bots' => true, 'block_condition' => ['isHosting' => true]], $pool);
+            $this->app->forgetInstance(VPNDetectionMiddleware::class);
+            $statuses[] = $this->visit($agent($n));
+            $sent = array_map(static function ($request): array {
+                parse_str($request->getUri()->getQuery(), $query);
+                return $query;
+            }, $this->stub->requests);
+            self::assertSame($n <= 4 ? [['user_agent' => $agent($n)]] : [[]], $sent, "agent {$n}");
+        }
+        self::assertSame([200, 200, 200, 200, 403], $statuses, 'the fifth agent is past the bound, and none is sent');
     }
 
     /** @return array<string, array{0: string, 1: int}> */
