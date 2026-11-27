@@ -71,7 +71,7 @@ Set `allow_bots` and the middleware sends each request's own `User-Agent` with i
 'block_condition' => ['isHosting' => true],
 ```
 
-With it on, a condition can also refuse a forged crawler: `['userAgent' => ['verdict' => 'spoofed']]`. Any other agent, or none, is not sent, since its verdict could only be `not_bot`. One address is looked up with at most four crawler agents an hour: past those its lookup sends none, and a request passes as a crawler only where the answer's `bot.verified` is true. Only an answer with every field carries the verdict, so a keyless client never gets one and nothing is let through by it; the middleware warns once when an agent was sent and the answer had no verdict. Off by default, since on, answers are cached per address and user agent rather than per address.
+With it on, a condition can also refuse a forged crawler: `['userAgent' => ['verdict' => 'spoofed']]`. Any other agent, or none, is not sent, since its verdict could only be `not_bot`. One address is looked up with at most four crawler agents an hour: past those its lookup sends none, and a request passes as a crawler only where the answer's `bot.verified` is true. Only an answer with every field carries the verdict, and `bot` is a paid member too, so a keyless app gets no bot pass and nothing is let through by it; the middleware warns once when an agent was sent and the answer had no verdict. Off by default, since on, answers are cached per address and user agent rather than per address.
 
 ## Where the client address comes from
 
@@ -106,13 +106,13 @@ Beyond a few million distinct visitors a day, stop calling the API per request: 
 
 ## Absent is not false
 
-Unlimited, with a key or without one, leaves out `isHosting`, `isCdn` and the four proxy flags, and of the detail behind each flag it answers only Tor's and relay's. A property your plan does not include is `null`, which means "not in your plan" rather than "checked, and no".
+Unlimited, with a key or without one, leaves out `isHosting`, `isCdn`, the four proxy flags, `isBot` and the AS's type, and of the detail behind each flag it answers only Tor's and relay's. A property your plan does not include is `null`, which means "not in your plan" rather than "checked, and no"; the AS's type, a plain string, reads `''`.
 
 ```php
 $lookup->result->isHosting ?? false   // when you only want the flag
 ```
 
-A `block_condition` naming a member your plan does not serve can never match, so the middleware warns, once each time the application boots, instead of failing silently. Set `on_missing_field` to `throw` to make it an error.
+A `block_condition` naming a member your plan does not serve can never match, `isBot` and `asn.type` without a key included, so the middleware warns, once each time the application boots, instead of failing silently. Set `on_missing_field` to `throw` to make it an error.
 
 ## Other Libraries
 
