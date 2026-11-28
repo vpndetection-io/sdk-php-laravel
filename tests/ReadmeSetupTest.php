@@ -95,6 +95,11 @@ final class ReadmeSetupTest extends TestCase
         return [VPNDetectionServiceProvider::class];
     }
 
+    protected function defineRoutes($router): void
+    {
+        $router->get('/', static fn (): string => 'ok')->middleware(VPNDetectionMiddleware::class);
+    }
+
     protected function defineEnvironment($app): void
     {
         // Only what a test needs on top of the README: where the API is.
@@ -142,5 +147,38 @@ final class ReadmeSetupTest extends TestCase
             [['path' => '/' . self::PUBLIC_IP, 'authorization' => null]],
             $this->visit(),
         );
+    }
+
+    /**
+     * Local development behind no proxy: a bogon peer sending a crawler's agent is answered
+     * without asking the API, and its answer carries no verdict, which is no plan gap and no 500.
+     */
+    public function testABogonPeerWithACrawlerAgentIsNoPlanGapAndNeverReachesTheApi(): void
+    {
+        self::setVariable(self::KEY);
+        $log = tempnam(sys_get_temp_dir(), 'vpndetection-warnings');
+        $previous = ini_set('error_log', $log);
+        try {
+            foreach (['127.0.0.1', '10.0.0.1', '::1'] as $peer) {
+                foreach (['throw', 'warn'] as $action) {
+                    $this->refreshApplication();
+                    $this->app['config']->set('vpndetection.allow_bots', true);
+                    $this->app['config']->set('vpndetection.block_condition', ['userAgent' => ['verdict' => 'spoofed']]);
+                    $this->app['config']->set('vpndetection.on_missing_field', $action);
+                    @unlink(self::$dir . '/requests.jsonl');
+
+                    $response = $this->withServerVariables(['REMOTE_ADDR' => $peer])
+                        ->get('/', ['User-Agent' => 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)']);
+
+                    $response->assertOk();
+                    self::assertFileDoesNotExist(self::$dir . '/requests.jsonl', "{$peer}, {$action}: a bogon reached the API");
+                }
+            }
+            self::assertStringNotContainsString('does not include', (string) file_get_contents($log));
+            self::assertStringContainsString('not a public address', (string) file_get_contents($log));
+        } finally {
+            ini_set('error_log', $previous === false ? '' : $previous);
+            @unlink($log);
+        }
     }
 }
